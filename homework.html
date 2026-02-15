@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Homework</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* MC card styles copied from mock-test.html for interactive questions */
+        .reading-questions { background: #f7fbff; padding: 18px; border-radius: 8px; border: 1px solid #d6e8ff; }
+        .questions-panel-title { background: linear-gradient(90deg,#e9f3ff 0%, #eef7ff 100%); border: 1px solid #cfe4ff; padding: 12px 14px; border-radius: 8px; margin-bottom: 14px; }
+        .questions-panel-title .title-main { color: #0b66d1; font-weight: 700; font-size: 16px; }
+        .questions-panel-title .title-sub { color: #0b66d1; font-weight: 600; font-size: 13px; opacity: 0.95; margin-top: 4px; }
+        .mc-card { background: white; border: 2px solid #cfe4ff; border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+        .mc-header { display:flex; align-items:center; gap:14px; padding:12px 16px; background: linear-gradient(90deg,#eef6ff 0%, #f8fbff 100%); border-bottom:1px solid #e6f0ff; }
+        .mc-number { background:#1e66d6; color:white; padding:6px 10px; border-radius:6px; font-weight:700; font-size:13px; min-width:44px; text-align:center; }
+        .mc-title { color:#0b66d1; font-weight:700; line-height:1.1; font-size:15px; }
+        .mc-subtitle { color:#0b66d1; font-weight:600; font-size:13px; margin-top:4px; opacity:0.95; }
+        .mc-body { background:white; padding:12px 12px; }
+        .mc-option { display:flex; align-items:center; gap:12px; padding:10px 6px; border-bottom:1px solid #f1f6fb; position:relative; }
+        .mc-option:last-child { border-bottom:none; }
+        .mc-option input[type="checkbox"] { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; opacity:0; z-index:2; cursor:pointer; }
+        .mc-option label { display:block; padding-left:40px; color:#1f2937; font-size:14px; cursor:pointer; line-height:1.4; position:relative; }
+        .mc-option label::before { content:''; position:absolute; left:8px; top:50%; transform:translateY(-50%); width:18px; height:18px; border:2px solid #cfe4ff; background:white; border-radius:4px; box-shadow:inset 0 1px 0 rgba(0,0,0,0.02); }
+        .mc-option input[type="checkbox"]:checked + label::before { background:#1e66d6; border-color:#1e66d6; }
+        .mc-option input[type="checkbox"]:checked + label::after { content:'\2713'; position:absolute; left:11px; top:50%; transform:translateY(-50%); color:white; font-weight:700; font-size:12px; pointer-events:none; }
+        .select-note { margin-left:auto; color:#0b66d1; font-weight:600; font-size:13px; }
+        .text-highlight { background: #c8e6c9; padding: 2px 4px; border-radius: 3px; }
+        .answer-label { color: #0b66d1; font-weight: 700; margin-left:6px; font-size:0.95em; }
+        .notes-box p { display: list-item; list-style-type: disc; list-style-position: inside; margin-left: 0.6rem; margin-bottom: 12px; line-height: 1.9; color:#333; }
+        .notes-box p.notes-heading { display:block; list-style:none; margin-left:0; margin-top:14px; margin-bottom:8px; color:#0066cc; font-weight:700; }
+    </style>
+</head>
+<body>
+    <!-- Social Media Header -->
+    <div class="social-header">
+        <div class="info-text">
+            <a href="#" class="info-link">ℹ️ Больше о поступлении в НУ, здесь</a>
+        </div>
+        <div class="social-links-header">
+            <span class="social-text">Follow us:</span>
+            <a href="https://t.me/prep4nu" target="_blank" class="social-btn-header telegram-btn">
+                📱 Telegram @prep4nu
+            </a>
+            <a href="https://www.tiktok.com/@prep4nu" target="_blank" class="social-btn-header tiktok-btn">
+                🎵 TikTok @prep4nu
+            </a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="page-nav">
+        <a href="index.html" class="nav-btn">← Back to Home</a>
+    </div>
+
+    <h1 class="page-title">IELTS Homework</h1>
+    <div id="last-updated" style="font-size:0.9em;color:#666;margin-bottom:10px;">Last updated: </div>
+
+    <div class="mock-test-container">
+        <!-- Navigation Tabs -->
+        <div class="part-tabs">
+            <button class="part-tab active" onclick="showPart(1)">Part 1: Reading</button>
+            <button class="part-tab" onclick="showPart(2)">Part 2: Listening</button>
+            <button class="part-tab" onclick="showPart(3)">Part 3: Writing</button>
+        </div>
+
+        <!-- PART 1: READING -->
+        <div class="part-section active" id="part-1">
+            <div class="part-header">
+                <h2>Part 1: Reading</h2>
+                <p>Progress: <span id="part1-progress">0 of 4</span> questions answered</p>
+            </div>
+
+            <div class="reading-container">
+                <!-- Reading Text (Right side) -->
+                <div class="reading-text">
+                    <h3>Reading Passage</h3>
+                    <p>
+                        <strong>G</strong>
+                    </p>
+                    <p>
+                        Many essayists mentioned climate change and its consequences for small-scale agriculture. Fan explained that ‘in addition to reducing crop yields, climate change increases the magnitude and frequency of extreme weather events, which increase smallholder vulnerability.’ <span id="sent-weather">The growing unpredictability of weather patterns increases farmers’ difficulty in managing weather-related risks.</span> According to this author, one solution would be to develop crop varieties that are more resilient to new climate trends and extreme weather patterns. Accordingly, Pat Mooney, co-founder and executive director of the ETC Group, suggested that ‘if we are to survive climate change, we must adopt policies that let peasants diversify the plant and animal species and varieties/breeds that make up our menus.’
+                    </p>
+                    <p>
+                        <strong>H</strong>
+                    </p>
+                    <p>
+                        Some participating authors and commentators argued in favour of community-based and autonomous risk management strategies through collective action groups, co-operatives or producers’ groups. Such groups enhance market opportunities for small-scale producers, reduce marketing costs and synchronise buying and selling with seasonal price conditions. According to Murphy, ‘collective action offers an important way for farmers to strengthen their political and economic bargaining power, and to reduce their business risks.’ One commentator, Giel Ton, warned that collective action does not come as a free good. It takes time, effort and money to organise, build trust and to experiment. Others, like Marcel Vernooij and Marcel Beukeboom, suggested that in order to ‘apply what we already know’, <span id="sent-stakeholders">all stakeholders, including business, government, scientists and civil society, must work together, starting at the beginning of the value chain</span>.
+                    </p>
+                    <p>
+                        <strong>I</strong>
+                    </p>
+                    <p>
+                        <span id="sent-intermediary">Some participants explained that market price volatility is often worsened by the presence of intermediary purchasers who, taking advantage of farmers’ vulnerability, dictate prices.</span> One commentator suggested farmers can gain greater control over prices and minimise price volatility by selling directly to consumers. Similarly, Sonali Bisht, founder and advisor to the Institute of Himalayan Environmental Research and Education (INHERE), India, wrote that <span id="sent-consumers">community-supported agriculture, where consumers invest in local farmers by subscription and guarantee producers a fair price, is a risk-sharing model worth more attention.</span> Direct food distribution systems not only encourage small-scale agriculture but also give consumers more control over the food they consume, she wrote.
+                    </p>
+                    <hr>
+                    <p style="font-size:0.95em; color:#444;">
+                        * The personal names in the text refer to the authors of written contributions to the online debate
+                    </p>
+                </div>
+
+                <!-- Questions (Right side) -->
+                <div class="reading-questions">
+                    <h3>Questions:</h3>
+
+                    <p><strong>Choose TWO letters, A–E. Write the correct letters in boxes on your answer sheet.</strong></p>
+
+                    <div class="questions-panel-title">
+                        <div class="title-main">Questions:</div>
+                        <div class="title-sub">Choose TWO letters, A–E. Write the correct letters in boxes on your answer sheet.</div>
+                    </div>
+
+                    <div class="mc-card">
+                        <div class="mc-header">
+                            <div class="mc-number">1–2</div>
+                            <div>
+                                <div class="mc-title">Which TWO problems are mentioned which affect farmers with small farms in developing countries?</div>
+                            </div>
+                        </div>
+                        <div class="mc-body">
+                            <div class="mc-option"><input type="checkbox" id="h_opt_a"><label for="h_opt_a">A lack of demand for locally produced food</label></div>
+                            <div class="mc-option"><input type="checkbox" id="h_opt_b"><label for="h_opt_b">B lack of irrigation programmes</label></div>
+                            <div class="mc-option"><input type="checkbox" id="h_opt_c"><label for="h_opt_c">C being unable to get insurance</label></div>
+                            <div class="mc-option"><input type="checkbox" id="h_opt_d" data-correct="true" data-target="sent-weather"><label for="h_opt_d">D the effects of changing weather patterns</label></div>
+                            <div class="mc-option"><input type="checkbox" id="h_opt_e" data-correct="true" data-target="sent-intermediary"><label for="h_opt_e">E having to sell their goods to intermediary buyers</label></div>
+                        </div>
+                    </div>
+
+                    <div class="mc-card">
+                        <div class="mc-header">
+                            <div class="mc-number">3–4</div>
+                            <div>
+                                <div class="mc-title">Which TWO actions are recommended for improving conditions for farmers?</div>
+                            </div>
+                        </div>
+                        <div class="mc-body">
+                            <div class="mc-option"><input type="checkbox" id="h2_opt_a"><label for="h2_opt_a">A reducing the size of food stocks</label></div>
+                            <div class="mc-option"><input type="checkbox" id="h2_opt_b"><label for="h2_opt_b">B attempting to ensure that prices rise at certain times of the year</label></div>
+                            <div class="mc-option"><input type="checkbox" id="h2_opt_c" data-correct="true" data-target="sent-stakeholders"><label for="h2_opt_c">C organising co-operation between a wide range of interested parties</label></div>
+                            <div class="mc-option"><input type="checkbox" id="h2_opt_d" data-correct="true" data-target="sent-consumers"><label for="h2_opt_d">D encouraging consumers to take a financial stake in farming</label></div>
+                            <div class="mc-option"><input type="checkbox" id="h2_opt_e"><label for="h2_opt_e">E making customers aware of the reasons for changing food prices</label></div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; gap:10px; margin-top:8px;">
+                        <button class="btn-primary" onclick="checkMCCards()">Check Answers</button>
+                        <button class="btn-secondary" onclick="resetMCCards()">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PART 2: LISTENING -->
+        <div class="part-section" id="part-2">
+            <div class="part-header">
+                <h2>Part 2: Listening</h2>
+                <p>Progress: <span id="part2-progress">0 of 10</span> questions answered</p>
+            </div>
+
+            <div class="audio-section listening-control">
+                <div class="audio-controls">
+                    <h3>🎧 Audio Player</h3>
+                    <!-- audio upload removed; audio will load from localStorage or audiohw.mp3 -->
+                    <audio id="audio-player" class="audio-player" controls>
+                        <source src="audio-placeholder.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="speed-controls">
+                        <label>Playback Speed:</label>
+                        <div class="speed-buttons">
+                            <button class="speed-btn" onclick="setPlaybackRate(this,0.5)">0.5x</button>
+                            <button class="speed-btn" onclick="setPlaybackRate(this,0.75)">0.75x</button>
+                            <button class="speed-btn active" onclick="setPlaybackRate(this,1)">1.0x</button>
+                            <button class="speed-btn" onclick="setPlaybackRate(this,1.25)">1.25x</button>
+                            <button class="speed-btn" onclick="setPlaybackRate(this,1.5)">1.5x</button>
+                            <button class="speed-btn" onclick="setPlaybackRate(this,1.75)">1.75x</button>
+                            <button class="speed-btn" onclick="setPlaybackRate(this,2)">2.0x</button>
+                        </div>
+                    </div>
+                    <p class="audio-instruction">Note: upload an audio file or place one named "audio-placeholder.mp3" in the project folder.</p>
+                </div>
+            </div>
+
+            <div class="listening-questions">
+                <h3>Complete the notes below. Write ONE WORD ONLY for each answer.</h3>
+
+                <div class="notes-box">
+                    <p class="notes-heading"><strong>Marine renewable energy (ocean energy)</strong></p>
+                    <p class="notes-heading"><strong>Introduction</strong></p>
+                    <p>More energy required because of growth in population and <input type="text" id="q1-listening" class="answer-input" placeholder="ONE WORD ONLY"></p>
+                    <p class="notes-heading">What’s needed:</p>
+                    <p>renewable energy sources</p>
+                    <p>methods that won’t create pollution</p>
+                    <p class="notes-heading"><strong>Wave energy</strong></p>
+                    <p>Advantage: waves provide a <input type="text" id="q2-listening" class="answer-input" placeholder="ONE WORD ONLY"> source of renewable energy</p>
+                    <p>Electricity can be generated using offshore or onshore systems</p>
+                    <p>Onshore systems may use a reservoir</p>
+                    <p class="notes-heading"><strong>Problems:</strong></p>
+                    <p>waves can move in any <input type="text" id="q3-listening" class="answer-input" placeholder="ONE WORD ONLY"> </p>
+                    <p> movement of sand, etc. on the <input type="text" id="q4-listening" class="answer-input" placeholder="ONE WORD ONLY"> of the ocean may be affected</p>
+                    <p class="notes-heading"><strong>Tidal energy</strong></p>
+                    <p>Tides are more <input type="text" id="q5-listening" class="answer-input" placeholder="ONE WORD ONLY"> than waves</p>
+                    <p class="notes-heading">Planned tidal lagoon in Wales:</p>
+                    <p>will be created in a <input type="text" id="q6-listening" class="answer-input" placeholder="ONE WORD ONLY"> at Swansea</p>
+                    <p>breakwater (dam) containing 16 turbines</p>
+                    <p>rising tide forces water through turbines, generating electricity</p>
+                    <p>stored water is released through <input type="text" id="q7-listening" class="answer-input" placeholder="ONE WORD ONLY"> driving the turbines in the reverse direction</p>
+                    <p class="notes-heading"><strong>Advantages:</strong></p>
+                    <p>not dependent on weather</p>
+                    <p>no <input type="text" id="q8-listening" class="answer-input" placeholder="ONE WORD ONLY"> is required to make it work</p>
+                    <p>likely to create a number of <input type="text" id="q9-listening" class="answer-input" placeholder="ONE WORD ONLY"></p>
+                    <p class="notes-heading"><strong>Problem:</strong></p>
+                    <p>may ham fish and birds, e.g. by affecting <input type="text" id="q10-listening" class="answer-input" placeholder="ONE WORD ONLY"> and building up silt</p>
+                    <p class="notes-heading"><strong>Ocean thermal energy conversion</strong></p>
+                    <p>Uses a difference in temperature between the surface and lower levels</p>
+                    <p>Water brought to the surface in a pipe</p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-primary" onclick="checkListeningAnswers()">Check Answers</button>
+                    <button class="btn-secondary" onclick="resetListeningAnswers()">Reset</button>
+                    <a href="transcript_homework.html" class="transcript-link">View Transcript →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PART 3: WRITING -->
+        <div class="part-section" id="part-3">
+            <div class="part-header">
+                <h2>Part 3: Writing - Topic Sentences</h2>
+                <p>Learn how to write effective topic sentences for your essays</p>
+            </div>
+
+            <div class="writing-section">
+                <!-- Teaching Content -->
+                <div class="writing-content">
+                    <div class="writing-info">
+                        <h3>What is a Topic Sentence?</h3>
+                        <p>A topic sentence is the main idea of a paragraph. It tells the reader what the paragraph will discuss. A good topic sentence:</p>
+                        <ul>
+                            <li>States the main idea clearly</li>
+                            <li>Is specific and focused</li>
+                            <li>Provides direction for the paragraph</li>
+                            <li>Does not include unnecessary details</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>❌ Weak Topic Sentence:</h4>
+                        <p>"Technology is important."</p>
+                        <p><em>Too vague and general</em></p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>✓ Strong Topic Sentence:</h4>
+                        <p>"Renewable energy sources can significantly reduce carbon emissions and combat climate change."</p>
+                        <p><em>Clear, specific, and sets the direction for discussion</em></p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>❌ Weak Topic Sentence:</h4>
+                        <p>"There are many things about education."</p>
+                        <p><em>Too broad and unfocused</em></p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>✓ Strong Topic Sentence:</h4>
+                        <p>"Online education provides flexibility and accessibility for working professionals who want to advance their careers."</p>
+                        <p><em>Specific benefit and clear context</em></p>
+                    </div>
+
+                    <div class="writing-info">
+                        <h3>Tips for Writing Topic Sentences:</h3>
+                        <ul>
+                            <li>Make it the first sentence of your paragraph</li>
+                            <li>Use active voice when possible</li>
+                            <li>Avoid absolute statements (always, never, all)</li>
+                            <li>Keep it concise but informative</li>
+                            <li>Ensure it relates to your thesis statement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Practice Exercises -->
+                <div class="writing-exercises">
+                    <h3>Practice Exercises</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Improve the following weak topic sentences. Write your improved versions below:</p>
+
+                    <div class="exercise-item">
+                        <h4>Exercise 1</h4>
+                        <p><strong>Weak Topic Sentence:</strong></p>
+                        <p>"Pollution is bad for the environment."</p>
+                        <p><strong>Your improved version:</strong></p>
+                        <textarea id="ex-1" placeholder="Write your improved topic sentence here..."></textarea>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h4>Exercise 2</h4>
+                        <p><strong>Weak Topic Sentence:</strong></p>
+                        <p>"Social media has advantages and disadvantages."</p>
+                        <p><strong>Your improved version:</strong></p>
+                        <textarea id="ex-2" placeholder="Write your improved topic sentence here..."></textarea>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h4>Exercise 3</h4>
+                        <p><strong>Weak Topic Sentence:</strong></p>
+                        <p>"Many people like traveling."</p>
+                        <p><strong>Your improved version:</strong></p>
+                        <textarea id="ex-3" placeholder="Write your improved topic sentence here..."></textarea>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h4>Exercise 4</h4>
+                        <p><strong>Weak Topic Sentence:</strong></p>
+                        <p>"Health is very important."</p>
+                        <p><strong>Your improved version:</strong></p>
+                        <textarea id="ex-4" placeholder="Write your improved topic sentence here..."></textarea>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h4>Exercise 5</h4>
+                        <p><strong>Weak Topic Sentence:</strong></p>
+                        <p>"Globalization affects countries."</p>
+                        <p><strong>Your improved version:</strong></p>
+                        <textarea id="ex-5" placeholder="Write your improved topic sentence here..."></textarea>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h4>Exercise 6</h4>
+                        <p><strong>Weak Topic Sentence:</strong></p>
+                        <p>"Students need to study hard."</p>
+                        <p><strong>Your improved version:</strong></p>
+                        <textarea id="ex-6" placeholder="Write your improved topic sentence here..."></textarea>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h4>Exercise 7</h4>
+                        <p><strong>Weak Topic Sentence:</strong></p>
+                        <p>"Technology is everywhere nowadays."</p>
+                        <p><strong>Your improved version:</strong></p>
+                        <textarea id="ex-7" placeholder="Write your improved topic sentence here..."></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn-primary" onclick="saveWritingAnswers()">Save Answers</button>
+                        <button class="btn-secondary" onclick="resetWritingAnswers()">Clear All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="page-nav bottom-nav">
+        <a href="index.html" class="nav-btn">← Back to Home</a>
+        <button class="nav-btn" style="margin-left:12px;" onclick="submitHomework()">Submit Homework</button>
+        <a href="submissions.html" class="nav-btn" style="margin-left:12px;">View Submissions</a>
+    </div>
+
+    <script>
+        // Show/Hide sections
+        function showPart(partNumber) {
+            // Hide all sections
+            document.getElementById('part-1').classList.remove('active');
+            document.getElementById('part-2').classList.remove('active');
+            document.getElementById('part-3').classList.remove('active');
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.part-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById('part-' + partNumber).classList.add('active');
+            document.querySelectorAll('.part-tab')[partNumber - 1].classList.add('active');
+        }
+
+        // PART 1 - READING FUNCTIONS
+        const readingAnswers = {
+            'q1-reading': 'increased greenhouse gases',
+            'q2-reading': 'carbon dioxide',
+            'q3-reading': ['sea level rise', 'melting ice', 'extreme weather', 'ecosystem disruption'],
+            'q4-reading': ['renewable energy', 'energy efficiency', 'forest protection'],
+            'q5-reading': ['becoming more frequent', 'more intense', 'increasing in frequency'],
+            'q6-reading': 'greenhouse effect',
+            'q7-reading': ['recycling', 'reducing consumption'],
+            'q8-reading': 'rising sea levels',
+            'q9-reading': ['rising temperatures', 'global warming', 'climate change'],
+            'q10-reading': 'renewable energy'
+        };
+
+        function checkReadingAnswers() {
+            let correct = 0;
+            for (const [questionId, acceptedAnswers] of Object.entries(readingAnswers)) {
+                const input = document.getElementById(questionId);
+                const userAnswer = input.value.toLowerCase().trim();
+                const acceptedArray = Array.isArray(acceptedAnswers) ? acceptedAnswers : [acceptedAnswers];
+                
+                if (acceptedArray.some(answer => userAnswer.includes(answer.toLowerCase()))) {
+                    input.style.backgroundColor = '#c8e6c9';
+                    correct++;
+                } else {
+                    input.style.backgroundColor = '#ffcdd2';
+                }
+            }
+            document.getElementById('part1-progress').textContent = correct + ' of 10';
+            saveToLocalStorage('reading', correct);
+        }
+
+        function resetReadingAnswers() {
+            document.querySelectorAll('[id^="q"][id$="-reading"]').forEach(input => {
+                input.value = '';
+                input.style.backgroundColor = 'white';
+            });
+            document.getElementById('part1-progress').textContent = '0 of 10';
+        }
+
+        // PART 2 - LISTENING FUNCTIONS
+        const listeningAnswers = {
+            'q1-listening': 'industry',
+            'q2-listening': 'constant',
+            'q3-listening': 'direction',
+            'q4-listening': 'floor',
+            'q5-listening': 'predictable',
+            'q6-listening': 'bay',
+            'q7-listening': 'gates',
+            'q8-listening': 'fuel',
+            'q9-listening': 'jobs',
+            'q10-listening': 'migration'
+        };
+
+        function checkListeningAnswers() {
+            let correct = 0;
+            for (const [questionId, acceptedAnswer] of Object.entries(listeningAnswers)) {
+                const input = document.getElementById(questionId);
+                const raw = (input.value || '').toLowerCase().trim();
+                // take first token if user entered multiple words
+                const first = raw.split(/\s+/)[0] || '';
+                if (first === acceptedAnswer.toLowerCase()) {
+                    input.style.backgroundColor = '#c8e6c9';
+                    correct++;
+                } else {
+                    input.style.backgroundColor = '#ffcdd2';
+                }
+            }
+            document.getElementById('part2-progress').textContent = correct + ' of 10';
+            saveToLocalStorage('listening', correct);
+            // save student's raw answers for transcript page
+            try {
+                const saved = {};
+                for (let i = 1; i <= 10; i++) {
+                    const el = document.getElementById(`q${i}-listening`);
+                    saved[`q${i}`] = el ? el.value : '';
+                }
+                localStorage.setItem('listeningAnswers', JSON.stringify(saved));
+            } catch (e) {}
+        }
+
+        function resetListeningAnswers() {
+            document.querySelectorAll('[id^="q"][id$="-listening"]').forEach(input => {
+                input.value = '';
+                input.style.backgroundColor = 'white';
+            });
+            document.getElementById('part2-progress').textContent = '0 of 10';
+            try { localStorage.removeItem('listeningAnswers'); } catch(e) {}
+        }
+
+        // audio upload handling: set audio src to uploaded file
+        // audio upload handling — persist as data URL in localStorage so upload works across pages
+        (function(){
+            const KEY = 'sharedAudioData';
+            const audio = document.getElementById('audio-player');
+            // restore previously uploaded audio
+            try {
+                const data = localStorage.getItem(KEY);
+                if (data && audio) {
+                    const srcEl = audio.querySelector('source');
+                    if (srcEl) { srcEl.src = data; audio.load(); }
+                    else { audio.src = data; audio.load(); }
+                } else if (audio) {
+                    // fall back to a project-local audio file if present
+                    const srcEl = audio.querySelector('source');
+                    if (srcEl) { srcEl.src = 'audiohw.mp3'; audio.load(); }
+                    else { audio.src = 'audiohw.mp3'; audio.load(); }
+                }
+            } catch(e) {}
+
+            // upload input removed from UI; users can still place a file named audiohw.mp3 or use existing stored audio
+        })();
+
+        function setPlaybackRate(btn, rate) {
+            const audio = document.getElementById('audio-player');
+            if (!audio) return;
+            audio.playbackRate = rate;
+
+            document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+            if (btn && btn.classList) btn.classList.add('active');
+        }
+
+        // PART 3 - WRITING FUNCTIONS
+        function saveWritingAnswers() {
+            const answers = {};
+            for (let i = 1; i <= 7; i++) {
+                answers['ex-' + i] = document.getElementById('ex-' + i).value;
+            }
+            localStorage.setItem('writing-homework', JSON.stringify(answers));
+            alert('Your answers have been saved!');
+        }
+
+        function resetWritingAnswers() {
+            for (let i = 1; i <= 7; i++) {
+                document.getElementById('ex-' + i).value = '';
+            }
+            localStorage.removeItem('writing-homework');
+        }
+
+        // Load saved answers on page load
+        window.addEventListener('load', function() {
+            // Load writing answers
+            const savedWriting = localStorage.getItem('writing-homework');
+            if (savedWriting) {
+                const answers = JSON.parse(savedWriting);
+                for (const [key, value] of Object.entries(answers)) {
+                    const element = document.getElementById(key);
+                    if (element) element.value = value;
+                }
+            }
+            // initialize MC behavior for this page
+            initTwoSelect();
+            // restore listening answers (student-entered) if present
+            try {
+                const saved = localStorage.getItem('listeningAnswers');
+                if (saved) {
+                    const answers = JSON.parse(saved);
+                    for (let i = 1; i <= 10; i++) {
+                        const el = document.getElementById(`q${i}-listening`);
+                        if (el && answers[`q${i}`]) el.value = answers[`q${i}`];
+                    }
+                }
+            } catch(e) {}
+            // attach live-save on inputs so transcript shows latest answers
+            try {
+                for (let i = 1; i <= 10; i++) {
+                    const el = document.getElementById(`q${i}-listening`);
+                    if (!el) continue;
+                    el.addEventListener('input', function() {
+                        try {
+                            const saved = JSON.parse(localStorage.getItem('listeningAnswers') || '{}');
+                            saved[`q${i}`] = this.value;
+                            localStorage.setItem('listeningAnswers', JSON.stringify(saved));
+                        } catch(e) {}
+                    });
+                }
+            } catch(e) {}
+        });
+
+        // Initialize MC selection logic (up to two per card)
+        function initTwoSelect() {
+            document.querySelectorAll('.mc-card').forEach(card => {
+                const checkboxes = Array.from(card.querySelectorAll('input[type="checkbox"]'));
+                const header = card.querySelector('.mc-header');
+                const note = document.createElement('div');
+                note.className = 'select-note';
+                note.textContent = '0 of 2 selected';
+                if (header) header.appendChild(note);
+
+                function updateState() {
+                    const checked = checkboxes.filter(cb => cb.checked).length;
+                    note.textContent = checked + ' of 2 selected';
+                    if (checked >= 2) {
+                        checkboxes.forEach(cb => { if (!cb.checked) cb.disabled = true; });
+                    } else {
+                        checkboxes.forEach(cb => { cb.disabled = false; });
+                    }
+                }
+
+                checkboxes.forEach(cb => cb.addEventListener('change', updateState));
+                updateState();
+            });
+        }
+
+        // Consolidated MC evaluation: highlight mapped sentences and report progress
+        function checkMCCards() {
+            const cards = document.querySelectorAll('.mc-card');
+            let cardScore = 0;
+            cards.forEach(card => {
+                const options = Array.from(card.querySelectorAll('.mc-option'));
+                const correctBoxes = options.map(o => o.querySelector('input[type="checkbox"][data-correct="true"]')).filter(Boolean);
+                const correctIds = new Set(correctBoxes.map(cb => cb.id));
+
+                const selectedBoxes = options.map(o => o.querySelector('input[type="checkbox"]')).filter(Boolean).filter(cb => cb.checked);
+                const selectedIds = new Set(selectedBoxes.map(cb => cb.id));
+
+                // reset visual state
+                options.forEach(o => { o.style.background = ''; o.querySelector('label').style.color = ''; });
+
+                let cardCorrect = true;
+                if (selectedIds.size !== correctIds.size) cardCorrect = false;
+                correctIds.forEach(id => { if (!selectedIds.has(id)) cardCorrect = false; });
+
+                // Visual feedback for options
+                options.forEach(o => {
+                    const cb = o.querySelector('input[type="checkbox"]');
+                    const lbl = o.querySelector('label');
+                    const isCorrect = cb.dataset.correct === 'true';
+                    if (cb.checked && isCorrect) {
+                        o.style.background = '#e6f8ed';
+                        lbl.style.color = '#1b5e20';
+                    } else if (cb.checked && !isCorrect) {
+                        o.style.background = '#fff0f0';
+                        lbl.style.color = '#b71c1c';
+                    } else if (!cb.checked && isCorrect) {
+                        o.style.background = '#f0fff4';
+                        lbl.style.color = '#1b5e20';
+                    }
+                });
+
+                // Always highlight mapped passage sentences for the correct options
+                correctBoxes.forEach(cb => {
+                    const target = cb.dataset.target;
+                    if (target) {
+                        const el = document.getElementById(target);
+                        if (el) {
+                            el.classList.add('text-highlight');
+
+                            // Add bracketed answer label next to the sentence
+                            let labelText = '';
+                            if (target === 'sent-weather' || target === 'sent-intermediary') {
+                                labelText = '[1-2]';
+                            } else if (target === 'sent-stakeholders' || target === 'sent-consumers') {
+                                labelText = '[3-4]';
+                            }
+                            if (labelText) {
+                                const next = el.nextElementSibling;
+                                if (!(next && next.classList && next.classList.contains('answer-label'))) {
+                                    const span = document.createElement('span');
+                                    span.className = 'answer-label';
+                                    span.textContent = ' ' + labelText;
+                                    el.parentNode.insertBefore(span, el.nextSibling);
+                                }
+                            }
+                        }
+                    }
+                });
+
+                if (cardCorrect) cardScore++;
+            });
+
+            // Each MC card represents two answer choices in the IELTS task
+            const perCard = 2;
+            const totalQuestions = cards.length * perCard;
+            const answered = cardScore * perCard;
+            document.getElementById('part1-progress').textContent = answered + ' of ' + totalQuestions;
+        }
+
+        function resetMCCards() {
+            document.querySelectorAll('.mc-card').forEach(card => {
+                card.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; cb.disabled = false; });
+                card.querySelectorAll('.mc-option').forEach(o => { o.style.background = ''; o.querySelector('label').style.color = ''; });
+                const note = card.querySelector('.select-note'); if (note) note.textContent = '0 of 2 selected';
+            });
+            // remove highlights and any inserted answer labels
+            ['sent-weather','sent-intermediary','sent-stakeholders','sent-consumers'].forEach(id => {
+                const el = document.getElementById(id); if (el) el.classList.remove('text-highlight');
+            });
+            document.querySelectorAll('.answer-label').forEach(lbl => lbl.remove());
+            const cards = document.querySelectorAll('.mc-card');
+            const totalQuestions = (cards.length * 2) || 0;
+            document.getElementById('part1-progress').textContent = '0 of ' + totalQuestions;
+        }
+
+        // show last modified time for verification
+        if (document.getElementById('last-updated')) {
+            document.getElementById('last-updated').textContent = 'Last updated: ' + document.lastModified;
+        }
+
+        function saveToLocalStorage(section, score) {
+            const homeworkData = JSON.parse(localStorage.getItem('homework-progress') || '{}');
+            homeworkData[section] = score;
+            localStorage.setItem('homework-progress', JSON.stringify(homeworkData));
+        }
+
+        // Submit full homework (saves a timestamped submission into localStorage)
+        function submitHomework() {
+            try {
+                const name = prompt('Enter your name (leave blank for anonymous):') || 'Anonymous';
+                const timestamp = new Date().toISOString();
+
+                const writingAnswers = JSON.parse(localStorage.getItem('writing-homework') || '{}');
+                const listeningAnswers = JSON.parse(localStorage.getItem('listeningAnswers') || '{}');
+                const progress = JSON.parse(localStorage.getItem('homework-progress') || '{}');
+
+                // collect MC choices
+                const mcSelections = [];
+                document.querySelectorAll('.mc-card').forEach(card => {
+                    const cardSelections = [];
+                    card.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                        if (cb.checked) {
+                            const label = cb.nextElementSibling ? cb.nextElementSibling.textContent.trim() : cb.parentNode.textContent.trim();
+                            cardSelections.push({ id: cb.id, label });
+                        }
+                    });
+                    if (cardSelections.length) mcSelections.push(cardSelections);
+                });
+
+                // collect listening text inputs (raw answers)
+                const listeningRaw = {};
+                for (let i = 1; i <= 10; i++) {
+                    const el = document.getElementById(`q${i}-listening`);
+                    listeningRaw[`q${i}`] = el ? (el.value || '') : '';
+                }
+
+                const submission = {
+                    name,
+                    timestamp,
+                    progress,
+                    writingAnswers,
+                    listeningAnswers,
+                    listeningRaw,
+                    mcSelections
+                };
+
+                const all = JSON.parse(localStorage.getItem('submissions') || '[]');
+                all.push(submission);
+                localStorage.setItem('submissions', JSON.stringify(all));
+
+                alert('Homework submitted — your teacher will be able to view it in Submissions.');
+            } catch (e) {
+                alert('Could not submit homework: ' + e.message);
+            }
+        }
+    </script>
+</body>
+</html>

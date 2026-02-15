@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening Mock</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Social Media Header -->
+    <div class="social-header">
+        <div class="info-text">
+            <a href="#" class="info-link">ℹ️ Больше о поступлении в НУ, здесь</a>
+        </div>
+        <div class="social-links-header">
+            <span class="social-text">Follow us:</span>
+            <a href="https://t.me/prep4nu" target="_blank" class="social-btn-header telegram-btn">
+                📱 Telegram @prep4nu
+            </a>
+            <a href="https://www.tiktok.com/@prep4nu" target="_blank" class="social-btn-header tiktok-btn">
+                🎵 TikTok @prep4nu
+            </a>
+        </div>
+    </div>
+
+    <div class="container listening-container">
+        <!-- Navigation -->
+        <div class="page-nav">
+            <a href="index.html" class="nav-btn">← Back to Reading Practice</a>
+        </div>
+
+        <h1 class="page-title">IELTS Listening Mock - Part 1</h1>
+
+        <!-- Audio Player Section -->
+        <div class="audio-section">
+            <div class="audio-controls">
+                <h3>🎧 Audio Player</h3>
+                <!-- audio upload removed; audio will load from localStorage or audiohw.mp3 -->
+                <audio id="audioPlayer" controls>
+                    <source src="audio.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <div class="speed-controls">
+                    <label>Playback Speed:</label>
+                    <div class="speed-buttons">
+                        <button class="speed-btn" data-speed="0.5">0.5x</button>
+                        <button class="speed-btn" data-speed="0.75">0.75x</button>
+                        <button class="speed-btn active" data-speed="1">1.0x</button>
+                        <button class="speed-btn" data-speed="1.25">1.25x</button>
+                        <button class="speed-btn" data-speed="1.5">1.5x</button>
+                        <button class="speed-btn" data-speed="1.75">1.75x</button>
+                        <button class="speed-btn" data-speed="2">2.0x</button>
+                    </div>
+                </div>
+                <p class="audio-instruction">Note: Add your audio file named "audio.mp3" to the project folder</p>
+            </div>
+        </div>
+
+        <!-- Questions Section -->
+        <div class="listening-questions">
+            <h2>Complete the notes below</h2>
+            <p class="instruction-text">Write ONE WORD ONLY for each answer</p>
+
+            <h3 class="section-header">The effects of environmental change on birds</h3>
+            <h4 class="subsection-header">Mercury (Hg)</h4>
+            <ul class="notes-list">
+                <li>Highly toxic</li>
+                <li>Released into the atmosphere from coal</li>
+                <li>In water it may be consumed by fish</li>
+                <li>It has also recently been found to affect birds which feed on <input type="text" name="q1" class="answer-input"></li>
+            </ul>
+
+            <h4 class="subsection-header">Research on effects of mercury on birds</h4>
+            <p class="research-intro">Claire Varian-Ramos is investigating</p>
+            <ul class="notes-list">
+                <li>the effects on birds' <input type="text" name="q2" class="answer-input"> or mental processes, e.g. memory</li>
+                <li>the effects on bird song (usually learned from a bird's <input type="text" name="q3" class="answer-input"> )</li>
+            </ul>
+
+            <h4 class="subsection-header">Findings:</h4>
+            <ul class="notes-list">
+                <li>songs learned by birds exposed to mercury are less <input type="text" name="q4" class="answer-input"></li>
+                <li>this may have a negative effect on birds' <input type="text" name="q5" class="answer-input"></li>
+            </ul>
+
+            <h4 class="subsection-header">Lab-based studies</h4>
+            <ul class="notes-list">
+                <li>allow more <input type="text" name="q6" class="answer-input"> for the experimenter</li>
+            </ul>
+
+            <h3 class="section-header">Implications for humans</h3>
+            <ul class="notes-list">
+                <li>Migrating birds such as <input type="text" name="q7" class="answer-input"> containing mercury may be eaten by humans</li>
+                <li>Mercury also causes problems in learning <input type="text" name="q8" class="answer-input"></li>
+                <li>Mercury in a mother's body from <input type="text" name="q9" class="answer-input"> may affect the unborn child</li>
+                <li>New regulations for mercury emissions will affect everyone's energy <input type="text" name="q10" class="answer-input"></li>
+            </ul>
+        </div>
+
+        <!-- Answer Summary -->
+        <div class="answer-summary">
+            <button class="submit-btn" onclick="checkListeningAnswers()">Check Answers</button>
+            <button class="reset-btn" onclick="resetListeningAnswers()">Reset</button>
+            <div id="result" class="result"></div>
+        </div>
+
+        <!-- Link to Transcript -->
+        <div class="transcript-link-section">
+            <a href="transcript.html" class="transcript-link-btn">View Transcript with Answers →</a>
+        </div>
+
+        <!-- Navigation -->
+        <div class="page-nav bottom-nav">
+            <a href="index.html" class="nav-btn">← Back to Reading Practice</a>
+        </div>
+    </div>
+
+    <script src="listening.js"></script>
+</body>
+</html>

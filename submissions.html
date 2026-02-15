@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Submissions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { padding:20px; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial; }
+        .submission { border:1px solid #e0e0e0; padding:12px; margin-bottom:10px; border-radius:6px; }
+        .meta { display:flex; gap:12px; align-items:center; }
+        .btn { padding:6px 10px; border-radius:6px; border:1px solid #cfcfcf; background:#fff; cursor:pointer; }
+        .btn-primary { background:#1e66d6; color:#fff; border-color:#1854ab; }
+        .checked { background:#e6f8ed; }
+        pre { white-space:pre-wrap; word-break:break-word; background:#fafafa; padding:8px; border-radius:4px; border:1px solid #eee; }
+        .controls { margin-bottom:12px; }
+    </style>
+</head>
+<body>
+    <h1>Homework Submissions</h1>
+    <div class="controls">
+        <button class="btn" onclick="loadSubmissions()">Refresh</button>
+        <button class="btn" onclick="downloadAll()">Download All (JSON)</button>
+        <a href="homework.html" class="btn">Back to Homework</a>
+    </div>
+
+    <div id="list"></div>
+
+    <script>
+        function loadSubmissions() {
+            const container = document.getElementById('list');
+            container.innerHTML = '';
+            const subs = JSON.parse(localStorage.getItem('submissions') || '[]');
+            if (!subs.length) {
+                container.innerHTML = '<p>No submissions yet.</p>';
+                return;
+            }
+            subs.forEach((s, i) => {
+                const div = document.createElement('div');
+                div.className = 'submission' + (s.checked ? ' checked' : '');
+                const meta = document.createElement('div');
+                meta.className = 'meta';
+                meta.innerHTML = `<strong>${escapeHtml(s.name)}</strong> <span style="color:#666;">submitted ${new Date(s.timestamp).toLocaleString()}</span>`;
+
+                const actions = document.createElement('div');
+                actions.style.marginLeft = 'auto';
+
+                const viewBtn = document.createElement('button');
+                viewBtn.className = 'btn';
+                viewBtn.textContent = 'View';
+                viewBtn.onclick = () => toggleDetails(i);
+
+                const markBtn = document.createElement('button');
+                markBtn.className = 'btn';
+                markBtn.style.marginLeft = '8px';
+                markBtn.textContent = s.checked ? 'Unmark' : 'Mark checked';
+                markBtn.onclick = () => toggleChecked(i);
+
+                const delBtn = document.createElement('button');
+                delBtn.className = 'btn';
+                delBtn.style.marginLeft = '8px';
+                delBtn.textContent = 'Delete';
+                delBtn.onclick = () => deleteSubmission(i);
+
+                const dlBtn = document.createElement('button');
+                dlBtn.className = 'btn';
+                dlBtn.style.marginLeft = '8px';
+                dlBtn.textContent = 'Download';
+                dlBtn.onclick = () => downloadSubmission(i);
+
+                actions.appendChild(viewBtn);
+                actions.appendChild(markBtn);
+                actions.appendChild(dlBtn);
+                actions.appendChild(delBtn);
+
+                const header = document.createElement('div');
+                header.style.display = 'flex';
+                header.style.alignItems = 'center';
+                header.appendChild(meta);
+                header.appendChild(actions);
+
+                div.appendChild(header);
+
+                const details = document.createElement('div');
+                details.id = `details-${i}`;
+                details.style.display = 'none';
+                details.style.marginTop = '8px';
+
+                const pre = document.createElement('pre');
+                pre.textContent = JSON.stringify(s, null, 2);
+                details.appendChild(pre);
+
+                div.appendChild(details);
+                container.appendChild(div);
+            });
+        }
+
+        function toggleDetails(index) {
+            const el = document.getElementById('details-' + index);
+            if (!el) return;
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function toggleChecked(index) {
+            const subs = JSON.parse(localStorage.getItem('submissions') || '[]');
+            if (!subs[index]) return;
+            subs[index].checked = !subs[index].checked;
+            localStorage.setItem('submissions', JSON.stringify(subs));
+            loadSubmissions();
+        }
+
+        function deleteSubmission(index) {
+            if (!confirm('Delete this submission?')) return;
+            const subs = JSON.parse(localStorage.getItem('submissions') || '[]');
+            subs.splice(index,1);
+            localStorage.setItem('submissions', JSON.stringify(subs));
+            loadSubmissions();
+        }
+
+        function downloadSubmission(index) {
+            const subs = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const data = subs[index];
+            if (!data) return;
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `submission-${index + 1}-${(data.name||'anon').replace(/\s+/g,'_')}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadAll() {
+            const subs = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const blob = new Blob([JSON.stringify(subs, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `submissions-${new Date().toISOString()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function escapeHtml(str){
+            return String(str)
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
+        }
+
+        // initial load
+        loadSubmissions();
+    </script>
+</body>
+</html>
